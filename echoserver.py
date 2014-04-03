@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Server With Error Handling - Chapter 3 - errorserver.py
+# Echo Server - Chapter 3 - echoserver.py
 import socket, traceback
 
 host = ''                               # Bind to all interfaces
@@ -23,7 +23,11 @@ while 1:
 
     try:
         print "Got connection from", clientsock.getpeername()
-        # Process the request here
+        while 1:
+            data = clientsock.recv(4096)
+            if not len(data):
+                break
+            clientsock.sendall(data)
     except (KeyboardInterrupt, SystemExit):
         raise
     except:
